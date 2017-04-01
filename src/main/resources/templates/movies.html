@@ -5,6 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'Movies from the database:  ' + ${listofmovies} + '!'" />
+  
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+      </tr>
+      <tr th:each="movie : ${listofmovies}">
+        <td th:text="${movie.id}">Stefan</td>
+        <td th:text="${movie.name}">Stefan</td>
+      </tr>
+    </table>
+
 </body>
 </html>
