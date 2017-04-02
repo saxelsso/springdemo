@@ -42,6 +42,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- add JSON -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
 		<!-- add Thymeleaf template processing to dependencies -->
 		<dependency>
             		<groupId>org.springframework.boot</groupId>
