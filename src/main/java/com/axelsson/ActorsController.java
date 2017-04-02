@@ -3,6 +3,8 @@ package com.axelsson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 // template processing
 import org.springframework.ui.Model;
@@ -16,10 +18,27 @@ import java.util.*;
 public class ActorsController {
     
     @RequestMapping("/actors")
-
     public String index(@RequestParam(value="name", required=false, defaultValue="") String result, Model model) {
 
-  	Connection conn = null;
+	// Add data to the model object
+	model.addAttribute("listofactors", this.getActorsFromDatabase());
+	// Tell Thymeleaf which HTML template to use when generating the view
+        return "actors"; 
+
+    }
+    
+    @RequestMapping("/json/actors")
+    public @ResponseBody List index_json(@RequestParam(value="name", required=false, defaultValue="") String result) {
+
+        // generate JSON directly through Spring/JSON framework 
+        return this.getActorsFromDatabase();
+
+    }
+    
+    private List getActorsFromDatabase() {
+    	// view-independent controller that retrieves data via JDBC and populates the List object
+    
+      	Connection conn = null;
    	Statement stmt = null;
    	List myList = new ArrayList();
 
@@ -35,8 +54,10 @@ public class ActorsController {
 
       		//Extract data from result set
       		while(rs.next()){
-         		//Retrieve by column name         		
-          		myList.add(rs.getString("name"));
+      		
+      			Actor myActor = new Actor(rs.getString("id"), rs.getString("name"));
+        		
+          		myList.add(myActor);
 
       		}
       		//Clean-up environment
@@ -61,15 +82,11 @@ public class ActorsController {
             			conn.close();
       		}catch(SQLException se){
         			se.printStackTrace();
-      		}//end finally try
-   	}//end try
-
-	// template processing
-	model.addAttribute("listofactors", myList);
-
-	// template processing
-        return "actors"; 
-
+      		}
+   	}
+   	
+   	return myList;
+    
     }
     
 }

@@ -8,12 +8,15 @@
 
     <table>
       <tr>
+        <th>ID</th>
         <th>NAME</th>
       </tr>
       <tr th:each="actor : ${listofactors}">
-        <td th:text="${actor}">Stefan</td>
+        <td th:text="${actor.id}">Null</td>
+        <td th:text="${actor.name}">Null</td>
       </tr>
     </table>
+
 
 </body>
 </html>
