@@ -32,7 +32,7 @@ public class MoviesController {
         return "movies";
     }
     
-    @RequestMapping("/json/movies")
+    @RequestMapping("/api/v1/movies")
     public @ResponseBody List index_json(@RequestParam(value="name", required=false, defaultValue="empty") String result) {
         
 	List myList = new ArrayList();

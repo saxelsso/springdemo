@@ -27,7 +27,7 @@ public class ActorsController {
 
     }
     
-    @RequestMapping("/json/actors")
+    @RequestMapping("/api/v1/actors")
     public @ResponseBody List index_json(@RequestParam(value="name", required=false, defaultValue="") String result) {
 
         // generate JSON directly through Spring/JSON framework 
