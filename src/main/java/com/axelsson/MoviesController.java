@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.*;
 
-// template processing
+// HTML template processing
 import org.springframework.ui.Model;
 
 @Controller
 public class MoviesController {
+    
     
     @RequestMapping("/movies")
     public String index(@RequestParam(value="name", required=false, defaultValue="empty") String result, Model model) {
@@ -31,7 +32,7 @@ public class MoviesController {
         return "movies";
     }
     
-    @RequestMapping("/movies_json")
+    @RequestMapping("/json/movies")
     public @ResponseBody List index_json(@RequestParam(value="name", required=false, defaultValue="empty") String result) {
         
 	List myList = new ArrayList();
@@ -42,7 +43,7 @@ public class MoviesController {
 	Movie myMovie2 = new Movie (2, "Batman");
 	myList.add(myMovie2);
         
-        // dispatch directly as JSON
+        // dispatch as JSON directly
         return myList;
     }
 
