@@ -44,7 +44,7 @@ public class ActorsController {
 
 	try {
 		Class.forName("org.postgresql.Driver");
-		String url = "jdbc:postgresql://localhost/demodb?user=postgres&password=newsci00&ssl=true";
+		String url = "jdbc:postgresql://app-db/postgres?user=postgres&password=postgres";
 		conn = DriverManager.getConnection(url);
 
       		stmt = conn.createStatement();

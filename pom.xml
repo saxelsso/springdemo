@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<docker.image.prefix>saxelsso</docker.image.prefix> <!-- my username at docker -->
 	</properties>
 
 	<dependencies>
@@ -47,6 +48,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- add Flyway -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
 		
 		<!-- add Thymeleaf template processing to dependencies -->
@@ -79,6 +85,22 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin> <!-- add docker plugin to maven -->
+            			<groupId>com.spotify</groupId>
+            			<artifactId>docker-maven-plugin</artifactId>
+            			<version>0.4.11</version>
+            			<configuration>
+                			<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                			<dockerDirectory>src/main/docker</dockerDirectory>
+                			<resources>
+                    				<resource>
+                        			<targetPath>/</targetPath>
+                        			<directory>${project.build.directory}</directory>
+                        			<include>${project.build.finalName}.jar</include>
+                    				</resource>
+                			</resources>
+            			</configuration>
+        		</plugin>
 		</plugins>
 	</build>
 
